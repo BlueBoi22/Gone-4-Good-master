@@ -71,7 +71,7 @@ public class Gone4good extends ApplicationAdapter {
 		billHud = new TextureRegion(items, 0, 0, 184,184);
 		billHead = new TextureRegion(new Texture("head.png"));
 		billStanding = new TextureRegion(items, 550, 0, 184, 184);
-		bullet = new TextureRegion(items, 640, 640, 184, 184);
+		bullet = new TextureRegion(items, 736, 736+85, 184, 10);
 		zombie = new TextureRegion(items, 552, 368, 184, 184);
 		zombieWalk = new Animation(0.2f, new TextureRegion(items, 552, 368, 184, 184), new TextureRegion(items, 368, 230, 184, 184));
 		billWalking = new Animation(0.2f, new TextureRegion(items, 550, 0, 184, 184), new TextureRegion(items, 736, 0, 184, 184));
@@ -156,7 +156,7 @@ public class Gone4good extends ApplicationAdapter {
 
 		for(Bullet i : bulletList){
 			i.update();
-			batch.draw(bullet, i.x, i.y);	
+			batch.draw(billHead, i.x, i.y);	
 		}
 
 		batch.end();
