@@ -32,6 +32,8 @@ public class Gone4good extends ApplicationAdapter {
 	TextureRegion billHud;
 	TextureRegion billHead;
 	TextureRegion billStanding;
+	TextureRegion zombie;
+	TextureRegion bullet;
 	TextureRegion baseTile1;
 	TextureRegion baseTile2;
 	TextureRegion baseTile3;
@@ -48,17 +50,14 @@ public class Gone4good extends ApplicationAdapter {
 	Animation billShootingStart;
 	Animation billShootWalk;
 	Animation billShootContinue;
-	Animation zombie;
+	Animation zombieWalk;
 	float animationTime = 0;
 	int x = 0;
 	int y = 0;
 	boolean walking;
 	ArrayList<Bullet> bulletList = new ArrayList<Bullet>();
+	ArrayList<Zombie> zombieList = new ArrayList<Zombie>();
 
-
-	// new array
-
-	//new animation
 
 	
 	@Override
@@ -72,17 +71,18 @@ public class Gone4good extends ApplicationAdapter {
 		billHud = new TextureRegion(items, 0, 0, 184,184);
 		billHead = new TextureRegion(new Texture("head.png"));
 		billStanding = new TextureRegion(items, 550, 0, 184, 184);
+		bullet = new TextureRegion(items, 640, 640, 184, 184);
+		zombie = new TextureRegion(items, 552, 368, 184, 184);
+		zombieWalk = new Animation(0.2f, new TextureRegion(items, 552, 368, 184, 184), new TextureRegion(items, 368, 230, 184, 184));
 		billWalking = new Animation(0.2f, new TextureRegion(items, 550, 0, 184, 184), new TextureRegion(items, 736, 0, 184, 184));
-		zombie = new Animation(0.2f, new TextureRegion(items, 230, 230, 184, 184), new TextureRegion(items, 276, 230, 184, 184));
 		billShootingStart = new Animation(.02f, new TextureRegion(items, 0, 184, 184, 184), new TextureRegion(items, 184, 184, 184, 184), new TextureRegion(items, 368, 184, 184, 184), new TextureRegion(items, 552, 184, 184, 184));
 		billShootContinue = new Animation(.02f, new TextureRegion(items, 368, 184, 184, 184), new TextureRegion(items, 552, 184, 184, 184));
 		billShootWalk = new Animation(0.2f, new TextureRegion(items, 736, 184, 184, 184), new TextureRegion(items, 0, 368, 184, 184), new TextureRegion(items, 184, 368, 184, 184), new TextureRegion(items, 184, 552, 184, 184));
 		
-
 		baseTile1 = new TextureRegion(background, 0, 0, 460, 460);
-		baseTile2 = new TextureRegion(background, 0, 0, 460, 460);
-		baseTile3 = new TextureRegion(background, 0, 0, 460, 460);
-		baseTile4 = new TextureRegion(background, 0, 0, 460, 460);
+		baseTile2 = new TextureRegion(background, 460, 0, 460, 460);
+		baseTile3 = new TextureRegion(background, 920, 0, 460, 460);
+		baseTile4 = new TextureRegion(background, 1380, 0, 460, 460);
 
 		leftWallTile = new TextureRegion(background, 1840, 0, 460, 460);
 		botWallTile = new TextureRegion(background, 2300, 0, 460, 460);
@@ -103,8 +103,10 @@ public class Gone4good extends ApplicationAdapter {
 		camera.unproject(touchPos);
 		ScreenUtils.clear(1, 0, 0, 1);
 		batch.begin();
+
 		Gdx.graphics.getWidth();
 		Gdx.graphics.getHeight();
+
 		batch.draw(botleftcorner, x, y);
 		batch.draw(leftWallTile, x, y + 420);
 		batch.draw(botWallTile, x, y + 840);
@@ -113,6 +115,7 @@ public class Gone4good extends ApplicationAdapter {
 		batch.draw(leftWallTile, x, y + 1260);
 		batch.draw(topleftcorner, x, y + 1680);
 		batch.draw(botWallTile, x, y + 840);
+
 		if (Gdx.input.isKeyPressed(Input.Keys.W)){
 			y -= 10;
 			walking = true;
@@ -132,17 +135,17 @@ public class Gone4good extends ApplicationAdapter {
 		else {
 			walking = false;
 		}
-		System.out.println(((float) TimeUtils.timeSinceMillis(0)));
+		
 		if (walking){
 		batch.draw(billWalking.getKeyFrame(animationTime, Animation.ANIMATION_LOOPING), 875, 450);
 		}
 		else if (!walking){
 		batch.draw(billStanding, 875, 450);
 		}
+
 		batch.draw(billHud, 0, 0);
 		float angle = MathUtils.atan2( (touchPos.y - 602), (touchPos.x  - 895));
 		float degrees = (float) (180.0 * angle / Math.PI);
-		//batch.draw(topWallTile, touchPos.x, touchPos.y );
 		batch.draw(billHead, 900, 605, 20, 0, 32, 40, 1, 1, degrees);
 
 		float angle2 = MathUtils.atan2( (touchPos.y - 450), (touchPos.x  - 875));
@@ -153,11 +156,9 @@ public class Gone4good extends ApplicationAdapter {
 
 		for(Bullet i : bulletList){
 			i.update();
-			batch.draw(billHead, i.x, i.y);
-			
+			batch.draw(bullet, i.x, i.y);	
 		}
 
-		
 		batch.end();
 	}
 	@Override
