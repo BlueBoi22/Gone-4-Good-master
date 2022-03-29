@@ -29,6 +29,7 @@ public class Gone4good extends ApplicationAdapter {
 	OrthographicCamera camera;
 	Texture items;
 	Texture background;
+	Texture bulletpng;
 	TextureRegion billHud;
 	TextureRegion billHead;
 	TextureRegion billStanding;
@@ -59,6 +60,7 @@ public class Gone4good extends ApplicationAdapter {
 	ArrayList<Zombie> zombieList = new ArrayList<Zombie>();
 
 
+
 	// new array
 
 	//new animation
@@ -72,6 +74,7 @@ public class Gone4good extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		items = new Texture("Gone 4 Good.png");
 		background = new Texture("Backgrounds.png");
+		bulletpng = new Texture("Bullet.png");
 		billHud = new TextureRegion(items, 0, 0, 184,184);
 		billHead = new TextureRegion(new Texture("head.png"));
 		billStanding = new TextureRegion(items, 550, 0, 184, 184);
@@ -81,7 +84,7 @@ public class Gone4good extends ApplicationAdapter {
 		billShootingStart = new Animation(.02f, new TextureRegion(items, 0, 184, 184, 184), new TextureRegion(items, 184, 184, 184, 184), new TextureRegion(items, 368, 184, 184, 184), new TextureRegion(items, 552, 184, 184, 184));
 		billShootContinue = new Animation(.02f, new TextureRegion(items, 368, 184, 184, 184), new TextureRegion(items, 552, 184, 184, 184));
 		billShootWalk = new Animation(0.2f, new TextureRegion(items, 736, 184, 184, 184), new TextureRegion(items, 0, 368, 184, 184), new TextureRegion(items, 184, 368, 184, 184), new TextureRegion(items, 184, 552, 184, 184));
-		bullet = new TextureRegion(items, 736, 736, 184, 184);
+		bullet = new TextureRegion(bulletpng, 0, 1, 64, 3);
 		
 		baseTile1 = new TextureRegion(background, 0, 0, 460, 460);
 		baseTile2 = new TextureRegion(background, 0, 0, 460, 460);
@@ -102,6 +105,9 @@ public class Gone4good extends ApplicationAdapter {
 	
 	@Override
 	public void render () {
+		if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+			Gdx.app.exit();
+		}
 		animationTime += Gdx.graphics.getDeltaTime();
 		Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
 		camera.unproject(touchPos);
@@ -136,7 +142,6 @@ public class Gone4good extends ApplicationAdapter {
 		else {
 			walking = false;
 		}
-		System.out.println(((float) TimeUtils.timeSinceMillis(0)));
 		if (walking){
 		batch.draw(billWalking.getKeyFrame(animationTime, Animation.ANIMATION_LOOPING), 875, 450);
 		}

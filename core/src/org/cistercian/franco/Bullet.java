@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Bullet extends Rectangle{
     public Vector2 dif = new Vector2();
-    float velocity = 45f;
+    float velocity = 60f;
     public void update(){
         this.x += dif.x * velocity;
         this.y += dif.y * velocity;
