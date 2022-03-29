@@ -84,7 +84,7 @@ public class Gone4good extends ApplicationAdapter {
 		billShootingStart = new Animation(.02f, new TextureRegion(items, 0, 184, 184, 184), new TextureRegion(items, 184, 184, 184, 184), new TextureRegion(items, 368, 184, 184, 184), new TextureRegion(items, 552, 184, 184, 184));
 		billShootContinue = new Animation(.02f, new TextureRegion(items, 368, 184, 184, 184), new TextureRegion(items, 552, 184, 184, 184));
 		billShootWalk = new Animation(0.2f, new TextureRegion(items, 736, 184, 184, 184), new TextureRegion(items, 0, 368, 184, 184), new TextureRegion(items, 184, 368, 184, 184), new TextureRegion(items, 184, 552, 184, 184));
-		bullet = new TextureRegion(bulletpng, 0, 1, 64, 3);
+		bullet = new TextureRegion(bulletpng, 0, 1, 64, 5);
 		
 		baseTile1 = new TextureRegion(background, 0, 0, 460, 460);
 		baseTile2 = new TextureRegion(background, 0, 0, 460, 460);
@@ -156,7 +156,7 @@ public class Gone4good extends ApplicationAdapter {
 		float angle2 = MathUtils.atan2( (touchPos.y - 450), (touchPos.x  - 875));
 		float degrees2 = (float) (180.0 * angle2 / Math.PI);
 		if(Gdx.input.justTouched()){
-			bulletList.add(new Bullet(875, 450, touchPos.x - 875, touchPos.y - 450));
+			bulletList.add(new Bullet(950, 590, touchPos.x - 950, touchPos.y - 590));
 		}
 
 		for(Bullet i : bulletList){
