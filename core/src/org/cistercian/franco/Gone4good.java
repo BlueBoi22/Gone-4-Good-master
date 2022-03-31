@@ -16,8 +16,10 @@ import com.badlogic.gdx.utils.TimeUtils;
 import org.w3c.dom.Text;
 
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.ui.Table.Debug;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import java.awt.*;
 import java.io.Console;
@@ -55,11 +57,11 @@ public class Gone4good extends ApplicationAdapter {
 	float animationTime = 0;
 	int x = 0;
 	int y = 0;
+	int q = 10;
 	boolean walking;
 	ArrayList<Bullet> bulletList = new ArrayList<Bullet>();
 	ArrayList<Zombie> zombieList = new ArrayList<Zombie>();
-
-
+	//Color(int rgba808080)
 
 	// new array
 
@@ -105,6 +107,7 @@ public class Gone4good extends ApplicationAdapter {
 	
 	@Override
 	public void render () {
+		
 		if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
 			Gdx.app.exit();
 		}
@@ -112,31 +115,36 @@ public class Gone4good extends ApplicationAdapter {
 		Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
 		camera.unproject(touchPos);
 		ScreenUtils.clear(1, 0, 0, 1);
+		Gdx.gl.glClearColor(.5f, .5f, .5f, 1f);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		Gdx.graphics.getWidth();
 		Gdx.graphics.getHeight();
-		batch.draw(botleftcorner, x, y);
-		batch.draw(leftWallTile, x, y + 420);
-		batch.draw(botWallTile, x, y + 840);
-		batch.draw(leftWallTile, x, y + 840);
-		batch.draw(leftWallTile, x, y + 420);
-		batch.draw(leftWallTile, x, y + 1260);
-		batch.draw(topleftcorner, x, y + 1680);
-		batch.draw(botWallTile, x, y + 840);
+		
+		batch.draw(botleftcorner, 0, 0);
+		batch.draw(leftWallTile, 0, 0 + 420);
+		batch.draw(botWallTile, 0, 0 + 840);
+		batch.draw(leftWallTile, 0, 0 + 840);
+		batch.draw(leftWallTile, 0, 0 + 420);
+		batch.draw(leftWallTile, 0, 0 + 1260);
+		batch.draw(topleftcorner, 0, 0 + 1680);
+		batch.draw(botWallTile, 0, 0 + 840);
+		camera.position.set(new Vector2(x, y), 0);
+		System.out.println(camera.position);
 		if (Gdx.input.isKeyPressed(Input.Keys.W)){
-			y -= 10;
+			y -= q;
 			walking = true;
 		}
 		else if (Gdx.input.isKeyPressed(Input.Keys.S)){
-			y += 10;
+			y += q;
 			walking = true;
 		}
 		else if (Gdx.input.isKeyPressed(Input.Keys.A)){
-			x += 10;
+			x += q;
 			walking = true;
 		}
 		else if (Gdx.input.isKeyPressed(Input.Keys.D)){
-			x -= 10;
+			x -= q;
 			walking = true;
 		}
 		else {
