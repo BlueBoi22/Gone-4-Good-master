@@ -63,10 +63,6 @@ public class Gone4good extends ApplicationAdapter {
 	ArrayList<Zombie> zombieList = new ArrayList<Zombie>();
 	//Color(int rgba808080)
 
-	// new array
-
-	//new animation
-
 	
 	@Override
 	public void create () {
@@ -80,6 +76,9 @@ public class Gone4good extends ApplicationAdapter {
 		billHud = new TextureRegion(items, 0, 0, 184,184);
 		billHead = new TextureRegion(new Texture("head.png"));
 		billStanding = new TextureRegion(items, 550, 0, 184, 184);
+		bullet = new TextureRegion(items, 736, 736+85, 184, 10);
+		zombie = new TextureRegion(items, 552, 368, 184, 184);
+		zombieWalk = new Animation(0.2f, new TextureRegion(items, 552, 368, 184, 184), new TextureRegion(items, 368, 230, 184, 184));
 		billWalking = new Animation(0.2f, new TextureRegion(items, 550, 0, 184, 184), new TextureRegion(items, 736, 0, 184, 184));
 		zombie = new TextureRegion(items, 552, 368, 184, 184);
 		zombieWalk = new Animation(0.2f, new TextureRegion(items, 552,368,184,184), new TextureRegion(items, 736, 368, 184, 184));
@@ -89,9 +88,9 @@ public class Gone4good extends ApplicationAdapter {
 		bullet = new TextureRegion(bulletpng, 0, 1, 64, 5);
 		
 		baseTile1 = new TextureRegion(background, 0, 0, 460, 460);
-		baseTile2 = new TextureRegion(background, 0, 0, 460, 460);
-		baseTile3 = new TextureRegion(background, 0, 0, 460, 460);
-		baseTile4 = new TextureRegion(background, 0, 0, 460, 460);
+		baseTile2 = new TextureRegion(background, 460, 0, 460, 460);
+		baseTile3 = new TextureRegion(background, 920, 0, 460, 460);
+		baseTile4 = new TextureRegion(background, 1380, 0, 460, 460);
 
 		leftWallTile = new TextureRegion(background, 1840, 0, 460, 460);
 		botWallTile = new TextureRegion(background, 2300, 0, 460, 460);
@@ -118,6 +117,7 @@ public class Gone4good extends ApplicationAdapter {
 		Gdx.gl.glClearColor(.5f, .5f, .5f, 1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
+
 		Gdx.graphics.getWidth();
 		Gdx.graphics.getHeight();
 		
@@ -156,6 +156,7 @@ public class Gone4good extends ApplicationAdapter {
 		else if (!walking){
 		batch.draw(billStanding, 875, 450);
 		}
+
 		batch.draw(billHud, 0, 0);
 		float angle = MathUtils.atan2( (touchPos.y - 602), (touchPos.x  - 895));
 		float degrees = (float) (180.0 * angle / Math.PI);
