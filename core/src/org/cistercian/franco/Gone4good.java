@@ -76,7 +76,7 @@ public class Gone4good extends ApplicationAdapter {
 		billHud = new TextureRegion(items, 0, 0, 184,184);
 		billHead = new TextureRegion(new Texture("head.png"));
 		billStanding = new TextureRegion(items, 550, 0, 184, 184);
-		bullet = new TextureRegion(items, 736, 736+85, 184, 10);
+		bullet = new TextureRegion(items, 736, 821, 184, 10);
 		zombie = new TextureRegion(items, 552, 368, 184, 184);
 		zombieWalk = new Animation(0.2f, new TextureRegion(items, 552, 368, 184, 184), new TextureRegion(items, 368, 230, 184, 184));
 		billWalking = new Animation(0.2f, new TextureRegion(items, 550, 0, 184, 184), new TextureRegion(items, 736, 0, 184, 184));
@@ -101,6 +101,10 @@ public class Gone4good extends ApplicationAdapter {
 		toprightcorner = new TextureRegion(background, 4140, 0, 460, 460);
 		botleftcorner = new TextureRegion(background, 4600, 0, 460, 460);
 		botrightcorner = new TextureRegion(background, 5060, 0, 460, 460);
+
+		for (int i = 0; i < 1000000; i++) {
+			zombieList.add(new Zombie((float) Math.random() * 5000, (float) Math.random() * 5000, (float) (Math.random() * 2) -1,(float)  (Math.random() * 2) -1));
+		}
 	}
 
 	
@@ -165,18 +169,23 @@ public class Gone4good extends ApplicationAdapter {
 		float angle2 = MathUtils.atan2( (touchPos.y - 450), (touchPos.x  - 875));
 		float degrees2 = (float) (180.0 * angle2 / Math.PI);
 		if(Gdx.input.justTouched()){
-			bulletList.add(new Bullet(950, 590, touchPos.x - 950, touchPos.y - 590));
+			bulletList.add(new Bullet(955, 589, touchPos.x - 955, touchPos.y - 589));
 		}
 
 		for(Bullet i : bulletList){
 			i.update();
-			batch.draw(bullet, i.x, i.y);
+			if (i.bulletpenetration > 0) {
+				batch.draw(bullet, i.x, i.y, 0, 0, i.width, 3, 10, 1, (float) Math.toDegrees(MathUtils.atan2(i.dif.y, i.dif.x)));
+			}
 		}
 		
 		for(Zombie t : zombieList){
-			t.update();
-			//batch.draw(
+			t.update(bulletList);
+			if (!t.dead) {
+				batch.draw(zombieWalk.getKeyFrame(animationTime, Animation.ANIMATION_LOOPING), t.x, t.y);
+			}
 		}
+
 		batch.draw(zombie, 300, 400);
 		batch.draw(zombieWalk.getKeyFrame(animationTime, Animation.ANIMATION_LOOPING), 384, 450);
 		
