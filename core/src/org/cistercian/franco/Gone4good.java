@@ -1,5 +1,6 @@
 package org.cistercian.franco;
 
+import javax.lang.model.util.ElementScanner6;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 
 import com.badlogic.gdx.ApplicationAdapter;
@@ -57,7 +58,7 @@ public class Gone4good extends ApplicationAdapter {
 	float animationTime = 0;
 	int x = 0;
 	int y = 0;
-	int q = 10;
+	int q = -10;
 	boolean walking;
 	ArrayList<Bullet> bulletList = new ArrayList<Bullet>();
 	ArrayList<Zombie> zombieList = new ArrayList<Zombie>();
@@ -102,7 +103,7 @@ public class Gone4good extends ApplicationAdapter {
 		botleftcorner = new TextureRegion(background, 4600, 0, 460, 460);
 		botrightcorner = new TextureRegion(background, 5060, 0, 460, 460);
 
-		for (int i = 0; i < 1000000; i++) {
+		for (int i = 0; i < 100; i++) {
 			zombieList.add(new Zombie((float) Math.random() * 5000, (float) Math.random() * 5000, (float) (Math.random() * 2) -1,(float)  (Math.random() * 2) -1));
 		}
 	}
@@ -124,6 +125,8 @@ public class Gone4good extends ApplicationAdapter {
 
 		Gdx.graphics.getWidth();
 		Gdx.graphics.getHeight();
+		batch.setProjectionMatrix(camera.combined);
+		camera.position.set(new Vector2(x, y), 0);
 		
 		batch.draw(botleftcorner, 0, 0);
 		batch.draw(leftWallTile, 0, 0 + 420);
@@ -133,43 +136,50 @@ public class Gone4good extends ApplicationAdapter {
 		batch.draw(leftWallTile, 0, 0 + 1260);
 		batch.draw(topleftcorner, 0, 0 + 1680);
 		batch.draw(botWallTile, 0, 0 + 840);
-		camera.position.set(new Vector2(x, y), 0);
-		System.out.println(camera.position);
+
+		//System.out.println(camera.position);
 		if (Gdx.input.isKeyPressed(Input.Keys.W)){
 			y -= q;
 			walking = true;
 		}
-		else if (Gdx.input.isKeyPressed(Input.Keys.S)){
+		if (Gdx.input.isKeyPressed(Input.Keys.S)){
 			y += q;
 			walking = true;
 		}
-		else if (Gdx.input.isKeyPressed(Input.Keys.A)){
+		if (Gdx.input.isKeyPressed(Input.Keys.A)){
 			x += q;
 			walking = true;
 		}
-		else if (Gdx.input.isKeyPressed(Input.Keys.D)){
+		if (Gdx.input.isKeyPressed(Input.Keys.D)){
 			x -= q;
 			walking = true;
 		}
-		else {
+		else if (! Gdx.input.isKeyPressed(Input.Keys.D) && !Gdx.input.isKeyPressed(Input.Keys.A) && ! Gdx.input.isKeyPressed(Input.Keys.S) && ! Gdx.input.isKeyPressed(Input.Keys.W)) {
 			walking = false;
 		}
 		if (walking){
-		batch.draw(billWalking.getKeyFrame(animationTime, Animation.ANIMATION_LOOPING), 875, 450);
+		batch.draw(billWalking.getKeyFrame(animationTime, Animation.ANIMATION_LOOPING), x, y);
 		}
 		else if (!walking){
-		batch.draw(billStanding, 875, 450);
+		batch.draw(billStanding, x, y);
 		}
 
 		batch.draw(billHud, 0, 0);
-		float angle = MathUtils.atan2( (touchPos.y - 602), (touchPos.x  - 895));
+		float angle = MathUtils.atan2( (touchPos.y - y), (touchPos.x  - x));
 		float degrees = (float) (180.0 * angle / Math.PI);
-		batch.draw(billHead, 900, 605, 20, 0, 32, 40, 1, 1, degrees);
+		batch.draw(billHead, x + 900 - 875, y + 605 - 450, 20, 0, 32, 40, 1, 1, degrees);
+		if (degrees < 90){
+			billHead.flip(true, false);
+		}
+		else if (degrees > 90){
+			billHead.flip(false, false);
+		}
 
+		System.out.println(degrees);
 		float angle2 = MathUtils.atan2( (touchPos.y - 450), (touchPos.x  - 875));
 		float degrees2 = (float) (180.0 * angle2 / Math.PI);
 		if(Gdx.input.justTouched()){
-			bulletList.add(new Bullet(955, 589, touchPos.x - 955, touchPos.y - 589));
+			bulletList.add(new Bullet(x, y, touchPos.x - x, touchPos.y - y));
 		}
 
 		for(Bullet i : bulletList){
@@ -188,7 +198,7 @@ public class Gone4good extends ApplicationAdapter {
 
 		batch.draw(zombie, 300, 400);
 		batch.draw(zombieWalk.getKeyFrame(animationTime, Animation.ANIMATION_LOOPING), 384, 450);
-		
+		camera.update();
 		batch.end();
 	}
 	@Override

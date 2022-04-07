@@ -19,6 +19,7 @@ public class Zombie extends Rectangle{
                 dead = true;
                 i.bulletpenetration--;
             }
+            
         }
         }
 
