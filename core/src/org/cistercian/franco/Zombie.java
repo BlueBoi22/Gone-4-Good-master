@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Zombie extends Rectangle{
     public Vector2 dif = new Vector2();
-    float velocity = 5f;
+    float velocity = 10f;
     boolean dead = false;
     public void update(ArrayList<Bullet> bulletlist){
         this.x += dif.x * velocity;

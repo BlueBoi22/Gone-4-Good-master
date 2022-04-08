@@ -34,12 +34,6 @@ public class Animation {
 	public Animation (float frameDuration, TextureRegion... keyFrames) {
 		this.frameDuration = frameDuration;
 		this.keyFrames = keyFrames;
-		//
-		//for (int i = 0; i < 5; i++) {
-		//	for (int k = 0; k < 5; k++) {
-		//		keyFrames[5*k + i ] = new TextureRegion()
-		//	}
-		//}
 	}
 
 	public TextureRegion getKeyFrame (float stateTime, int mode) {
