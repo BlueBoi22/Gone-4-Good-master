@@ -33,6 +33,7 @@ public class Gone4good extends ApplicationAdapter {
 	Texture items;
 	Texture background;
 	Texture bulletpng;
+	Texture Micheal;
 	TextureRegion billHud;
 	TextureRegion billHead;
 	TextureRegion billStanding;
@@ -50,6 +51,7 @@ public class Gone4good extends ApplicationAdapter {
 	TextureRegion botrightcorner;
 	TextureRegion topleftcorner;
 	TextureRegion toprightcorner;
+	Animation MichealM;
 	Animation billWalking;
 	Animation billShootingStart;
 	Animation billShootWalk;
@@ -73,6 +75,7 @@ public class Gone4good extends ApplicationAdapter {
 		items = new Texture("Gone 4 Good.png");
 		background = new Texture("Backgrounds.png");
 		bulletpng = new Texture("Bullet.png");
+		Micheal = new Texture("Michealsheet.png");
 		billHud = new TextureRegion(items, 0, 0, 184,184);
 		billHead = new TextureRegion(new Texture("head.png"));
 		billStanding = new TextureRegion(items, 550, 0, 184, 184);
@@ -86,6 +89,7 @@ public class Gone4good extends ApplicationAdapter {
 		billShootContinue = new Animation(.02f, new TextureRegion(items, 368, 184, 184, 184), new TextureRegion(items, 552, 184, 184, 184));
 		billShootWalk = new Animation(0.2f, new TextureRegion(items, 736, 184, 184, 184), new TextureRegion(items, 0, 368, 184, 184), new TextureRegion(items, 184, 368, 184, 184), new TextureRegion(items, 184, 552, 184, 184));
 		bullet = new TextureRegion(bulletpng, 0, 1, 64, 5);
+		MichealM = new Animation(0.2f, new TextureRegion(Micheal, 46, 44, 32, 15), new TextureRegion(Micheal, 168, 44, 32, 15));
 		
 		baseTile1 = new TextureRegion(background, 0, 0, 460, 460);
 		baseTile2 = new TextureRegion(background, 460, 0, 460, 460);
@@ -135,6 +139,7 @@ public class Gone4good extends ApplicationAdapter {
 		batch.draw(leftWallTile, 0, 0 + 1260);
 		batch.draw(topleftcorner, 0, 0 + 1680);
 		batch.draw(botWallTile, 0, 0 + 840);
+		batch.draw(MichealM.getKeyFrame(animationTime, Animation.ANIMATION_LOOPING), 100, 100);
 
 	
 		if (Gdx.input.isKeyPressed(Input.Keys.W)){

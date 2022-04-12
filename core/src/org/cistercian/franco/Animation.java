@@ -1,3 +1,4 @@
+
 package org.cistercian.franco;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
