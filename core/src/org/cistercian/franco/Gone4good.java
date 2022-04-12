@@ -63,6 +63,7 @@ public class Gone4good extends ApplicationAdapter {
 	int q = -10;
 	boolean walking;
 	ArrayList<Bullet> bulletList = new ArrayList<Bullet>();
+	int headdir = 0;
 	ArrayList<Zombie> zombieList = new ArrayList<Zombie>();
 	public int ammo = 150;
 	
@@ -89,7 +90,7 @@ public class Gone4good extends ApplicationAdapter {
 		billShootContinue = new Animation(.02f, new TextureRegion(items, 368, 184, 184, 184), new TextureRegion(items, 552, 184, 184, 184));
 		billShootWalk = new Animation(0.2f, new TextureRegion(items, 736, 184, 184, 184), new TextureRegion(items, 0, 368, 184, 184), new TextureRegion(items, 184, 368, 184, 184), new TextureRegion(items, 184, 552, 184, 184));
 		bullet = new TextureRegion(bulletpng, 0, 1, 64, 5);
-		MichealM = new Animation(0.2f, new TextureRegion(Micheal, 46, 44, 32, 15), new TextureRegion(Micheal, 168, 44, 32, 15));
+		MichealM = new Animation(0.2f, new TextureRegion(Micheal, 0, 0, 122, 122), new TextureRegion(Micheal, 168, 44, 32, 15));
 		
 		baseTile1 = new TextureRegion(background, 0, 0, 460, 460);
 		baseTile2 = new TextureRegion(background, 460, 0, 460, 460);
@@ -171,14 +172,21 @@ public class Gone4good extends ApplicationAdapter {
 		float angle = MathUtils.atan2( (touchPos.y - y), (touchPos.x  - x));
 		float degrees = (float) (180.0 * angle / Math.PI);
 		batch.draw(billHead, x + 900 - 875, y + 605 - 450, 20, 0, 32, 40, 1, 1, degrees);
-		if (degrees < 90){
-			billHead.flip(true, false);
+		if (degrees < 0){
+			if (headdir == 0) {
+				billHead.flip(true, false);
+				headdir = 1;
+			}
 		}
 		else if (degrees > 90){
-			billHead.flip(false, false);
+			if (headdir == 1) {
+				billHead.flip(true, false);
+				headdir = 0;
+			}
+			
 		}
 
-		System.out.println(ammo);
+		System.out.println(degrees);
 		float angle2 = MathUtils.atan2( (touchPos.y - 450), (touchPos.x  - 875));
 		float degrees2 = (float) (180.0 * angle2 / Math.PI);
 		if(Gdx.input.justTouched() && ammo > 1) {
