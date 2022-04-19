@@ -99,15 +99,16 @@ public class Gone4good extends ApplicationAdapter {
 
 		leftWallTile = new TextureRegion(background, 1840, 0, 460, 460);
 		botWallTile = new TextureRegion(background, 2300, 0, 460, 460);
-		rightWallTile = new TextureRegion(background, 2860, 0, 460, 460);
-		topWallTile = new TextureRegion(background, 3220, 0, 460, 460);
+		rightWallTile = new TextureRegion(background, 2760, 0, 460, 460);
+		topWallTile = new TextureRegion(background, 3223, 0, 460, 460);
 
 		topleftcorner = new TextureRegion(background, 3680, 0, 460, 460);
-		toprightcorner = new TextureRegion(background, 4140, 0, 460, 460);
+		toprightcorner = new TextureRegion(background, 4141, 0, 460, 460);
 		botleftcorner = new TextureRegion(background, 4600, 0, 460, 460);
 		botrightcorner = new TextureRegion(background, 5060, 0, 460, 460);
+	
 
-		for (int i = 0; i < 10000; i++) {
+		for (int i = 0; i < 10; i++) {
 			zombieList.add(new Zombie((float) Math.random() * 5000, (float) Math.random() * 5000, (float) (Math.random() * 2) -1,(float)  (Math.random() * 2) -1));
 		}
 	}
@@ -132,14 +133,24 @@ public class Gone4good extends ApplicationAdapter {
 		batch.setProjectionMatrix(camera.combined);
 		camera.position.set(new Vector2(x, y), 0);
 		
-		batch.draw(botleftcorner, 0, 0);
-		batch.draw(leftWallTile, 0, 0 + 420);
-		batch.draw(botWallTile, 0, 0 + 840);
-		batch.draw(leftWallTile, 0, 0 + 840);
-		batch.draw(leftWallTile, 0, 0 + 420);
-		batch.draw(leftWallTile, 0, 0 + 1260);
-		batch.draw(topleftcorner, 0, 0 + 1680);
-		batch.draw(botWallTile, 0, 0 + 840);
+		
+		batch.draw(baseTile1, 460, 1380);
+		batch.draw(baseTile2, 460, 1840);
+		batch.draw(botleftcorner, 0, 920);
+		batch.draw(leftWallTile, 0, 1380);
+		batch.draw(leftWallTile, 0, 1840);
+		batch.draw(topleftcorner, 0, 2300);
+		batch.draw(topWallTile, 460, 2300);
+		batch.draw(topWallTile, 920, 2300);
+		batch.draw(toprightcorner, 1380, 2300);
+		batch.draw(toprightcorner, 1840, 1840);
+		batch.draw(rightWallTile, 1840, 1380);
+		batch.draw(toprightcorner, 2300, 920);
+		batch.draw(rightWallTile, 2300, 460);
+		batch.draw(botrightcorner, 2300, 0);
+
+
+		
 		batch.draw(MichealM.getKeyFrame(animationTime, Animation.ANIMATION_LOOPING), 100, 100);
 
 	
