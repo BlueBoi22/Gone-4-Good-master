@@ -90,7 +90,7 @@ public class Gone4good extends ApplicationAdapter {
 		billShootContinue = new Animation(.02f, new TextureRegion(items, 368, 184, 184, 184), new TextureRegion(items, 552, 184, 184, 184));
 		billShootWalk = new Animation(0.2f, new TextureRegion(items, 736, 184, 184, 184), new TextureRegion(items, 0, 368, 184, 184), new TextureRegion(items, 184, 368, 184, 184), new TextureRegion(items, 184, 552, 184, 184));
 		bullet = new TextureRegion(bulletpng, 0, 1, 64, 5);
-		MichealM = new Animation(0.2f, new TextureRegion(Micheal, 0, 0, 122, 122), new TextureRegion(Micheal, 168, 44, 32, 15));
+		MichealM = new Animation(0.4f, new TextureRegion(Micheal, 0, 0, 240, 240), new TextureRegion(Micheal, 220, 0, 240, 240));
 		
 		baseTile1 = new TextureRegion(background, 0, 0, 460, 460);
 		baseTile2 = new TextureRegion(background, 460, 0, 460, 460);
@@ -108,7 +108,7 @@ public class Gone4good extends ApplicationAdapter {
 		botrightcorner = new TextureRegion(background, 5060, 0, 460, 460);
 	
 
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 50; i++) {
 			zombieList.add(new Zombie((float) Math.random() * 5000, (float) Math.random() * 5000, (float) (Math.random() * 2) -1,(float)  (Math.random() * 2) -1));
 		}
 	}
@@ -136,6 +136,7 @@ public class Gone4good extends ApplicationAdapter {
 		
 		batch.draw(baseTile1, 460, 1380);
 		batch.draw(baseTile2, 460, 1840);
+
 		batch.draw(botleftcorner, 0, 920);
 		batch.draw(leftWallTile, 0, 1380);
 		batch.draw(leftWallTile, 0, 1840);
@@ -148,10 +149,16 @@ public class Gone4good extends ApplicationAdapter {
 		batch.draw(toprightcorner, 2300, 920);
 		batch.draw(rightWallTile, 2300, 460);
 		batch.draw(botrightcorner, 2300, 0);
-
-
-		
-		batch.draw(MichealM.getKeyFrame(animationTime, Animation.ANIMATION_LOOPING), 100, 100);
+		batch.draw(botWallTile, 1840, 0);
+		batch.draw(botWallTile, 1380, 0);
+		batch.draw(botleftcorner, 920, 0);
+		batch.draw(leftWallTile, 920, 460);
+		batch.draw(botWallTile, 460, 920);
+		batch.draw(baseTile3, 1380, 460);
+		batch.draw(baseTile2, 1380, 920);
+		batch.draw(baseTile4, 1380, 1380);
+		batch.draw(baseTile4, 1840, 920);
+		batch.draw(baseTile1, 1840, 1840);
 
 	
 		if (Gdx.input.isKeyPressed(Input.Keys.W)){
@@ -183,19 +190,7 @@ public class Gone4good extends ApplicationAdapter {
 		float angle = MathUtils.atan2( (touchPos.y - y), (touchPos.x  - x));
 		float degrees = (float) (180.0 * angle / Math.PI);
 		batch.draw(billHead, x + 900 - 875, y + 605 - 450, 20, 0, 32, 40, 1, 1, degrees);
-		if (degrees < 0){
-			if (headdir == 0) {
-				billHead.flip(true, false);
-				headdir = 1;
-			}
-		}
-		else if (degrees > 90){
-			if (headdir == 1) {
-				billHead.flip(true, false);
-				headdir = 0;
-			}
-			
-		}
+		
 
 		System.out.println(degrees);
 		float angle2 = MathUtils.atan2( (touchPos.y - 450), (touchPos.x  - 875));
