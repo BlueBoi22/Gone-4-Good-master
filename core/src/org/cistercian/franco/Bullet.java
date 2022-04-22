@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Bullet extends Rectangle{
     public Vector2 dif = new Vector2();
-    float velocity = 60f;
+    float velocity = 5f;
     public int bulletpenetration = 6;
 
 

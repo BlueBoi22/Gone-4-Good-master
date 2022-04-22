@@ -154,11 +154,7 @@ public class Gone4good extends ApplicationAdapter {
 		batch.draw(botleftcorner, 920, 0);
 		batch.draw(leftWallTile, 920, 460);
 		batch.draw(botWallTile, 460, 920);
-		batch.draw(baseTile3, 1380, 460);
-		batch.draw(baseTile2, 1380, 920);
-		batch.draw(baseTile4, 1380, 1380);
-		batch.draw(baseTile4, 1840, 920);
-		batch.draw(baseTile1, 1840, 1840);
+		
 
 	
 		if (Gdx.input.isKeyPressed(Input.Keys.W)){
@@ -187,7 +183,7 @@ public class Gone4good extends ApplicationAdapter {
 		batch.draw(billStanding, x, y);
 		}
 		batch.draw(billHud, 0, 0);
-		float angle = MathUtils.atan2( (touchPos.y - y), (touchPos.x  - x));
+		float angle = MathUtils.atan2( (touchPos.y - y - 140), (touchPos.x  - x - 50));
 		float degrees = (float) (180.0 * angle / Math.PI);
 		batch.draw(billHead, x + 900 - 875, y + 605 - 450, 20, 0, 32, 40, 1, 1, degrees);
 		
@@ -196,7 +192,7 @@ public class Gone4good extends ApplicationAdapter {
 		float angle2 = MathUtils.atan2( (touchPos.y - 450), (touchPos.x  - 875));
 		float degrees2 = (float) (180.0 * angle2 / Math.PI);
 		if(Gdx.input.justTouched() && ammo > 1) {
-			bulletList.add(new Bullet(x, y, touchPos.x - x, touchPos.y - y));
+			bulletList.add(new Bullet(x + 50, y + 140, touchPos.x - x, touchPos.y - y));
 			ammo -= 1;
 		}
 
