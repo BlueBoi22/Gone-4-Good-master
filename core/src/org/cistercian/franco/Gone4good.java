@@ -108,7 +108,7 @@ public class Gone4good extends ApplicationAdapter {
 		botrightcorner = new TextureRegion(background, 5060, 0, 460, 460);
 	
 
-		for (int i = 0; i < 50; i++) {
+		for (int i = 0; i < 500; i++) {
 			zombieList.add(new Zombie((float) Math.random() * 5000, (float) Math.random() * 5000, (float) (Math.random() * 2) -1,(float)  (Math.random() * 2) -1));
 		}
 	}
